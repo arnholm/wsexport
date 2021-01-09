@@ -13,12 +13,12 @@
 				<Option compiler="msvc" />
 				<Compiler>
 					<Add option="/MDd" />
+					<Add option="/GF" />
 					<Add option="/Od" />
+					<Add option="/W3" />
 					<Add option="/RTCsu" />
 					<Add option="/Fd$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).pdb" />
-					<Add option="/GF" />
 					<Add option="/EHsc" />
-					<Add option="/W3" />
 					<Add option="`$(CPDE_USR)\bin\wx-config.exe --prefix=$(#wx) --wxcfg=$(#wx.debug) --cxxflags`" />
 					<Add option="/D_CRT_SECURE_NO_WARNINGS" />
 					<Add option="/D_CRT_NONSTDC_NO_DEPRECATE" />
@@ -30,6 +30,7 @@
 					<Add option="/NODEFAULTLIB:msvcrt.lib" />
 					<Add option="/INCREMENTAL:NO" />
 					<Add library="msvcrtd.lib" />
+					<Add library="op_lited" />
 				</Linker>
 			</Target>
 			<Target title="MSVC_Release">
@@ -39,10 +40,10 @@
 				<Option compiler="msvc" />
 				<Compiler>
 					<Add option="/MD" />
-					<Add option="/Ox" />
 					<Add option="/GF" />
-					<Add option="/EHsc" />
+					<Add option="/Ox" />
 					<Add option="/W3" />
+					<Add option="/EHsc" />
 					<Add option="`$(CPDE_USR)\bin\wx-config.exe --prefix=$(#wx) --wxcfg=$(#wx.release) --cxxflags`" />
 					<Add option="/D_CRT_SECURE_NO_WARNINGS" />
 					<Add option="/D_CRT_NONSTDC_NO_DEPRECATE" />
@@ -54,6 +55,7 @@
 					<Add option="/NODEFAULTLIB:msvcrtd.lib" />
 					<Add option="/INCREMENTAL:NO" />
 					<Add library="msvcrt.lib" />
+					<Add library="op_lite" />
 				</Linker>
 			</Target>
 			<Target title="GCC_Debug">
@@ -106,6 +108,7 @@
 		<Compiler>
 			<Add directory="$(CPDE_USR)/include" />
 			<Add directory="$(#boost.include)" />
+			<Add directory="$(#msgpack.include)" />
 		</Compiler>
 		<Linker>
 			<Add directory="$(CPDE_USR)/lib" />
@@ -120,9 +123,6 @@
 		<Unit filename="sqlWeatherStation.h" />
 		<Unit filename="version.h" />
 		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
