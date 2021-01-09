@@ -152,7 +152,16 @@ bool sqlTextExporter::export_list(list<op_pid> ids, int utc_offset, double eleva
 
 void sqlTextExporter::export_numeric_html(list<op_pid> ids, int utc_offset, double elevation, double irain, ostream& out)
 {
+   // the most recent instance (may be invalid)
    op_ptr<sqlWeatherStation> ws(ids.back());
+
+   // count invalid instances and keep the most recent valid
+   size_t num_invalid=0;
+   for(auto& id : ids) {
+      op_ptr<sqlWeatherStation> ws_test(id);
+      if(!(ws_test->is_valid()))num_invalid++;
+      else ws = ws_test;
+   }
 
    time_t timestamp = ws->time_utc()+utc_offset;
 
@@ -163,12 +172,6 @@ void sqlTextExporter::export_numeric_html(list<op_pid> ids, int utc_offset, doub
    string date_value = buffer;
    strftime(buffer,buflen,"%H:%M",gmtime(&timestamp));
    string time_value = buffer;
-
-   size_t num_invalid=0;
-   for(auto& id : ids) {
-      op_ptr<sqlWeatherStation> ws(id);
-      if(!(ws->is_valid()))num_invalid++;
-   }
 
    out << "<html>" << endl;
    out << "<head>" << endl;
