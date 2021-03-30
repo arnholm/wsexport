@@ -62,6 +62,8 @@ double sqlTextExporter::rain_intensity(time_t now, int seconds_before, RainMap& 
       }
    }
 
+   if(irain > 200) irain = 0.0;
+
    return irain;
 }
 
